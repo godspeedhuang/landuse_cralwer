@@ -1,11 +1,20 @@
 import requests
 import json
 import os
+import pandas as pd
+import time
+import random
 # 抓該縣市有哪些都計區
 
 # 建立該縣市資料夾(輸入縣市英文代碼)
-os.mkdir('PIF')
+with open('taiwan_administrative_divisions.csv', 'r', encoding='utf-8') as file:
+    data = pd.read_csv(file)
 
+HRCIS = data['HRCIS'].tolist()
+ISO = data['ISO'].tolist()
+HRCIS
+
+# for h, i in zip(HRCIS, ISO):
 headers_m = {
     'authority': 'luz.tcd.gov.tw',
     'method': 'POST',
@@ -32,7 +41,7 @@ headers_m = {
 form_data = {
     'FUNC': '0101',
     # 輸入縣市代碼
-    'COUNTY': '10013'
+    'COUNTY': '9020'
 }
 request_url = 'https://luz.tcd.gov.tw/web/ws_data.ashx?CMD=GETDATA&OBJ=URBANPLAN'
 response = requests.post(request_url, data=form_data, headers=headers_m)
@@ -41,9 +50,10 @@ elements_list = [i for i in elements]
 print(elements_list)
 
 # 輸入資料夾名稱
-os.chdir('C:/Users/syuanbo/Desktop/landuse/PIF')
+os.chdir('C:/Users/syuanbo/Desktop/landuse/Taiwan_district_code')
 
 # 建立該縣市都計區檔案
 # 輸入縣市名稱
-with open('PIF.json', mode='w', encoding='utf-8') as file:
+with open('KIN.json', mode='w', encoding='utf-8') as file:
     json.dump(elements_list, file, ensure_ascii=False)
+# time.sleep(random.randint(2, 5))
