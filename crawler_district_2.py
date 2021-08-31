@@ -4,10 +4,10 @@ import os
 # 抓該縣市都計區有哪些土地使用分區
 
 # 進入該縣市資料夾
-os.chdir('C:/Users/syuanbo/Desktop/landuse/TNN')
+os.chdir('C:/Users/syuanbo/Desktop/landuse/TXG')
 
 # 讀取該縣市都計區
-with open('TNN.json', 'r', encoding='utf-8') as file:
+with open('TXG.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 plnning_code = [i['計畫區代碼'] for i in data]
 
@@ -24,7 +24,7 @@ for i in plnning_code:
         'content-length': '22',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
         # 更換
-        'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=iigmb0dtq0qf4a5y1sk154xi',
+        'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=3vd2tbiitaiau3c5vobnjllv',
         'origin': 'https://luz.tcd.gov.tw',
         'referer': 'https://luz.tcd.gov.tw/web/default.aspx',
         'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Microsoft Edge";v="92"',
