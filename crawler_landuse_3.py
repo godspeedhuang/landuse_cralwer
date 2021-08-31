@@ -10,10 +10,10 @@ user_agent = UserAgent()
 with open('ips.json', 'r') as file:
     cips = json.load(file)
 # 進入該縣市資料夾
-os.chdir('C:/Users/syuanbo/Desktop/landuse/TXG')
+os.chdir('C:/Users/syuanbo/Desktop/landuse/PIF')
 
 # 抓出所有該縣市的都計區
-with open('TXG.json', mode='r', encoding='utf-8') as file:
+with open('PIF.json', mode='r', encoding='utf-8') as file:
     data = json.load(file)
 data_plan = [i['計畫區代碼'] for i in data]
 
@@ -35,7 +35,7 @@ for d in data_plan:
             'authority': 'luz.tcd.gov.tw',
             'method': 'POST',
             # 更改
-            'path': '/web/ws_data.ashx?CMD=SEARCHURBANLANDUSE&TOKEN=U65yWjl1zDnIAUMdC3gzymt6ey45116idfccGU0HsrOaGz8wQYg1dqMsyPJ2nN6vbjieR1lFbBIuBw1BJaiHHA..',
+            'path': '/web/ws_data.ashx?CMD=SEARCHURBANLANDUSE&TOKEN=U65yWjl1zDnIAUMdC3gzyrgeUEAG7EvhyeVmizvw_i0zSwmYfMg967ukOmcV7rw5sUc-ELpRvFRS7LE2cxAAYw..',
             'scheme': 'https',
             'accept': '*/*',
             'accept-encoding': 'gzip, deflate, br',
@@ -43,7 +43,7 @@ for d in data_plan:
             'content-length': '22',
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             # 更改
-            'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=3vd2tbiitaiau3c5vobnjllv',
+            'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=ras5f3qxysbnceaqrktena5b',
             'origin': 'https://luz.tcd.gov.tw',
             'referer': 'https://luz.tcd.gov.tw/web/default.aspx',
             'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Microsoft Edge";v="92"',
@@ -58,7 +58,7 @@ for d in data_plan:
             'VAL1': d,
             'VAL2': i
         }
-        request_url = 'https://luz.tcd.gov.tw/web/ws_data.ashx?CMD=SEARCHURBANLANDUSE&TOKEN=U65yWjl1zDnIAUMdC3gzymt6ey45116idfccGU0HsrOaGz8wQYg1dqMsyPJ2nN6vbjieR1lFbBIuBw1BJaiHHA..'
+        request_url = 'https://luz.tcd.gov.tw/web/ws_data.ashx?CMD=SEARCHURBANLANDUSE&TOKEN=U65yWjl1zDnIAUMdC3gzyrgeUEAG7EvhyeVmizvw_i0zSwmYfMg967ukOmcV7rw5sUc-ELpRvFRS7LE2cxAAYw..'
         response = requests.post(
             request_url, data=form_data, headers=headers_m, proxies={'https://': random.choice(cips), 'http://': random.choice(cips)})
         # 隨機更換ip位置
