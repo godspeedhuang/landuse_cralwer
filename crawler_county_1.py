@@ -4,7 +4,7 @@ import os
 # 抓該縣市有哪些都計區
 
 # 建立該縣市資料夾(輸入縣市英文代碼)
-os.mkdir('TXG')
+os.mkdir('PIF')
 
 headers_m = {
     'authority': 'luz.tcd.gov.tw',
@@ -18,7 +18,7 @@ headers_m = {
     'content-length': '22',
     'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
     # 更換
-    'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=3vd2tbiitaiau3c5vobnjllv; _gat_gtag_UA_164207323_1=1',
+    'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=ras5f3qxysbnceaqrktena5b; _gat_gtag_UA_164207323_1=1',
     'origin': 'https://luz.tcd.gov.tw',
     'referer': 'https://luz.tcd.gov.tw/web/default.aspx',
     'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Microsoft Edge";v="92"',
@@ -32,7 +32,7 @@ headers_m = {
 form_data = {
     'FUNC': '0101',
     # 輸入縣市代碼
-    'COUNTY': '66000'
+    'COUNTY': '10013'
 }
 request_url = 'https://luz.tcd.gov.tw/web/ws_data.ashx?CMD=GETDATA&OBJ=URBANPLAN'
 response = requests.post(request_url, data=form_data, headers=headers_m)
@@ -41,9 +41,9 @@ elements_list = [i for i in elements]
 print(elements_list)
 
 # 輸入資料夾名稱
-os.chdir('C:/Users/syuanbo/Desktop/landuse/TXG')
+os.chdir('C:/Users/syuanbo/Desktop/landuse/PIF')
 
 # 建立該縣市都計區檔案
 # 輸入縣市名稱
-with open('TXG.json', mode='w', encoding='utf-8') as file:
+with open('PIF.json', mode='w', encoding='utf-8') as file:
     json.dump(elements_list, file, ensure_ascii=False)
