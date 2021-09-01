@@ -2,10 +2,15 @@ import requests
 import json
 import os
 import pandas as pd
+from fake_useragent import UserAgent
 import time
 import random
 # 抓該縣市有哪些都計區
 
+
+user_agent = UserAgent()
+with open('ips.json', 'r') as file:
+    cips = json.load(file)
 # 建立該縣市資料夾(輸入縣市英文代碼)
 with open('taiwan_administrative_divisions.csv', 'r', encoding='utf-8') as file:
     data = pd.read_csv(file)
@@ -13,6 +18,7 @@ with open('taiwan_administrative_divisions.csv', 'r', encoding='utf-8') as file:
 HRCIS = data['HRCIS'].tolist()
 ISO = data['ISO'].tolist()
 HRCIS
+ISO
 
 # for h, i in zip(HRCIS, ISO):
 headers_m = {
@@ -27,7 +33,7 @@ headers_m = {
     'content-length': '22',
     'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
     # 更換
-    'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=ras5f3qxysbnceaqrktena5b; _gat_gtag_UA_164207323_1=1',
+    'cookie': '_ga=GA1.3.55520146.1629099145; _gid=GA1.3.967154037.1630226023; ASP.NET_SessionId=3cqvm420uoaovw0ws3imgzri; _gat_gtag_UA_164207323_1=1',
     'origin': 'https://luz.tcd.gov.tw',
     'referer': 'https://luz.tcd.gov.tw/web/default.aspx',
     'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Microsoft Edge";v="92"',
@@ -35,16 +41,17 @@ headers_m = {
     'sec-fetch-dest': 'empty',
     'sec-fetch-mode': 'cors',
     'sec-fetch-site': 'same-origin',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.73',
+    'user-agent': user_agent.random,
     'x-requested-with': 'XMLHttpRequest'
 }
 form_data = {
     'FUNC': '0101',
     # 輸入縣市代碼
-    'COUNTY': '9020'
+    'COUNTY': '09007'
 }
 request_url = 'https://luz.tcd.gov.tw/web/ws_data.ashx?CMD=GETDATA&OBJ=URBANPLAN'
-response = requests.post(request_url, data=form_data, headers=headers_m)
+response = requests.post(request_url, data=form_data, headers=headers_m, proxies={
+                         'https://': random.choice(cips), 'http://': random.choice(cips)})
 elements = response.json()
 elements_list = [i for i in elements]
 print(elements_list)
@@ -54,6 +61,6 @@ os.chdir('C:/Users/syuanbo/Desktop/landuse/Taiwan_district_code')
 
 # 建立該縣市都計區檔案
 # 輸入縣市名稱
-with open('KIN.json', mode='w', encoding='utf-8') as file:
+with open('LIE.json', mode='w', encoding='utf-8') as file:
     json.dump(elements_list, file, ensure_ascii=False)
 # time.sleep(random.randint(2, 5))
