@@ -1,18 +1,24 @@
 import json
 import os
 import pandas as pd
-
+county = []
 code = []
 name = []
-county = ['KHH', 'TNN', 'TXG', 'PIF']
 
-for j in county:
-    os.chdir('C:/Users/syuanbo/Desktop/landuse')
-    os.chdir(j)
+with open('taiwan_administrative_divisions.csv', 'r', encoding='utf-8') as file:
+    data = pd.read_csv(file)
+
+HRCIS = data['HRCIS'].tolist()
+ISO = data['ISO'].tolist()
+
+
+for j in ISO:
+    os.chdir('C:/Users/syuanbo/Desktop/landuse/Taiwan_district_code')
     with open(j + '.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
     for i in data:
+        county.append(j)
         code.append(i['計畫區代碼'])
         name.append(i['計畫區名稱'])
 
@@ -21,6 +27,7 @@ for j in county:
 # print(name)
 os.chdir('C:/Users/syuanbo/Desktop/landuse')
 df = pd.DataFrame()
+df['計畫區縣市'] = county
 df['計畫區代碼'] = code
 df['計畫區名稱'] = name
 print(df)
