@@ -17,8 +17,6 @@ with open('taiwan_administrative_divisions.csv', 'r', encoding='utf-8') as file:
 
 HRCIS = data['HRCIS'].tolist()
 ISO = data['ISO'].tolist()
-HRCIS.pop(0)
-ISO.pop(0)
 
 # 新增該縣市都計區範圍資料夾
 for iso in ISO:
